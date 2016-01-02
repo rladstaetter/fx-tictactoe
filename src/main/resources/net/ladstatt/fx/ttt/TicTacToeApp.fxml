@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ladstatt.fx.ttt.TicTacToeAppController">
+   <top>
+      <Label fx:id="myLabel" prefHeight="62.0" prefWidth="220.0" text="TicTacToe" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <GridPane prefHeight="283.0" prefWidth="345.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="375.0" minWidth="0.0" prefWidth="55.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="400.0" minWidth="0.0" prefWidth="72.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="53.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="550.0" minWidth="0.0" prefWidth="0.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="53.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="48.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="220.0" minHeight="5.0" prefHeight="196.0" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="middleRightBtn" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onMiddleRightClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="bottomLeftBtn" layoutX="10.0" layoutY="54.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onBottomLeftClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.rowIndex="2" />
+            <Button fx:id="middleLeftBtn" layoutX="10.0" layoutY="54.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onMiddleLeftClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.rowIndex="1" />
+            <Button fx:id="topCenterBtn" layoutX="10.0" layoutY="54.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onTopCenterClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.columnIndex="1" />
+             <Button fx:id="bottomRightBtn" layoutX="210.0" layoutY="54.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onBottomRightClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="bottomCenterBtn" layoutX="210.0" layoutY="54.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onBottomCenterClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="middleCenterBtn" layoutX="210.0" layoutY="54.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onMiddleCenterClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="topRightBtn" layoutX="210.0" layoutY="169.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onTopRightClick" prefHeight="40.0" prefWidth="40.0" text="" GridPane.columnIndex="2" />
+            <Button fx:id="topLeftBtn" layoutX="410.0" layoutY="169.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onTopLeftClick" prefHeight="40.0" prefWidth="40.0" text="" />
+         </children>
+      </GridPane>
+   </center>
+   <right>
+      <BorderPane prefHeight="258.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+         <center>
+            <TextArea fx:id="logTextView" prefHeight="311.0" prefWidth="162.0" BorderPane.alignment="CENTER" />
+         </center>
+         <top>
+            <Button mnemonicParsing="false" onAction="#newGame" text="New Game" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
+   </right>
+   <left>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

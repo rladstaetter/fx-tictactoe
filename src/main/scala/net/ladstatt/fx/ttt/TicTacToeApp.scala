@@ -6,7 +6,7 @@ import javafx.application.Application
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.value.{ChangeListener, ObservableValue}
 import javafx.fxml.{FXML, FXMLLoader, Initializable}
-import javafx.scene.control.{Button, TextArea}
+import javafx.scene.control.{Label, Button, TextArea}
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
 
@@ -104,7 +104,7 @@ class TicTacToeAppController extends Initializable {
 
   def setCurrentGame(t: TicTacToe) = currentGameProperty.set(t)
 
-  @FXML var logTextView: TextArea = _
+  @FXML var resultLabel: Label = _
 
   override def initialize(location: URL, resources: ResourceBundle): Unit = {
 
@@ -112,12 +112,17 @@ class TicTacToeAppController extends Initializable {
 
   def updateGame(oldGame: TicTacToe, curGame: TicTacToe): Unit = {
     if (curGame.isOver) {
-      logTextView.appendText(curGame.asString)
+      curGame.winner match {
+        case None => resultLabel.setText("Draw")
+        case Some((p,_)) if p == PlayerA =>  resultLabel.setText("Winner: PlayerA")
+        case Some((p,_)) if p == PlayerB =>  resultLabel.setText("Winner: PlayerB")
+      }
+      buttons.values.foreach(_.setDisable(true))
     }
   }
 
   @FXML def newGame(): Unit = {
-    logTextView.clear()
+    resultLabel.setText("")
     setCurrentGame(TicTacToe())
     buttons.values.foreach {
       case b =>

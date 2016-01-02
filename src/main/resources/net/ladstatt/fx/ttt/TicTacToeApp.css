@@ -1,0 +1,85 @@
+.root {
+     -fx-background-image: url("background.jpg");
+}
+
+.white {
+    -fx-text-fill: #ffffff;
+}
+
+.button
+{   -fx-background-color: #F5F5DC;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover{
+    -fx-background-color: #FFDAB9;
+}
+
+.button:focused
+{
+    -fx-border-color: green;
+    -fx-border-width: 1;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:disabled, .button:default:disabled
+{
+    -fx-opacity: 0.4;
+    -fx-background-color: #cccccc;
+    -fx-text-fill: #212121;
+}
+
+.button:default
+{
+    -fx-background-color: #008287;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 0, 0;
+    -fx-background-insets: 0, 0;
+}
+
+.button:default:hover{
+    -fx-background-color: #219297;
+}
+
+.blue {
+  /*  -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+*/
+    -fx-background-color:
+            #090a0c,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+        -fx-background-radius: 5,4,3,5;
+        -fx-background-insets: 0,1,2,0;
+        -fx-text-fill: white;
+        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+        -fx-font-family: "Arial";
+        -fx-text-fill: linear-gradient(white, #d0d0d0);
+        -fx-padding: 10 20 10 20;
+        -fx-font-size:30px;
+}
+
+.blue:hover {
+    -fx-background-color:
+                #090a0c,
+                linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+                linear-gradient(#20262b, #191d22),
+                radial-gradient(center 0% 50%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+            -fx-background-radius: 5,4,3,5;
+            -fx-background-insets: 0,1,2,0;
+            -fx-text-fill: white;
+            -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+            -fx-font-family: "Arial";
+            -fx-text-fill: linear-gradient(white, #d0d0d0);
+            -fx-padding: 10 20 10 20;
+            -fx-font-size:30px;
+}

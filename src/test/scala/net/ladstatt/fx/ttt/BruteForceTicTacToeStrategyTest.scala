@@ -31,14 +31,10 @@ class BruteForceTicTacToeStrategyTest {
 
   @Test def testGamesWithDrawCount(): Unit = {
 
-    println(gamesWithDraw.values.head.asString)
     assertEquals(46080, gamesWithDraw.size)
 
     assertTrue(gamesWithDraw.forall {
-      case (moves, t) =>
-        println("asdfasdf")
-        println(t.asString)
-        t.isDraw
+      case (moves, t) => t.isDraw
     })
   }
 

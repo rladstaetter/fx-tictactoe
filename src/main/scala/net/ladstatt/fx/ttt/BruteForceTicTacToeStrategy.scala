@@ -3,7 +3,7 @@ package net.ladstatt.fx.ttt
 import scala.util.Random
 
 /**
-  * A very naive way to implement a brute force strategy for tic tac toe
+  * A naive way to implement a brute force strategy for tic tac toe
   */
 object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
 
@@ -99,9 +99,9 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
     * @return
     */
   def determineMove(game: TicTacToe, potentialMoves: Seq[Seq[TMove]]): TMove = {
-    println(game.asString)
+    // check if there is already an obvious threat from the opponent to win the game
+    // if there is, we'll take the move
     val winningMoveForOpponent = game.lookAhead(PlayerA)
-    println("lookahead:" + winningMoveForOpponent)
     if (winningMoveForOpponent.isDefined) {
       winningMoveForOpponent.get
     } else {
@@ -109,14 +109,7 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
       val possibilities = potentialMoves.sortWith((a, b) => a.size < b.size)
       val aPathToWin = possibilities.head
 
-      // remove already moved turns
-      //val moves: Seq[TMove] =
-      val nextMoves: Seq[TMove] = aPathToWin.drop(game.movesSoFar.length)
-
-      val t = nextMoves.head
-      println(game.nextPlayer + ": took " + t + " as a move.")
-      t
-      //moves(Random.nextInt(moves.size)) // take a random next step out of the possible wins
+      aPathToWin.drop(game.movesSoFar.length).head
     }
   }
 }

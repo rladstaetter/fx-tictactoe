@@ -11,11 +11,6 @@ import scala.collection.immutable.ListMap
 class TicTacToeTest {
 
 
-  /**
-    * contains all possible games as keys and the according game.
-    */
-  lazy val allGames: Map[Seq[TMove], TicTacToe] = TicTacToe.mkGames()
-
   @Test def instantiateAnEmptyTicTacToeGame(): Unit = {
     assertNotNull(TicTacToe())
   }
@@ -27,6 +22,13 @@ class TicTacToeTest {
     assertEquals(PlayerB, t.nextPlayer)
   }
 
+  @Test def testRemainingMoves(): Unit = {
+    val g = TicTacToe(
+      """---
+        |-o-
+        |xo-""".stripMargin)
+    assertEquals(Set(MiddleLeft, MiddleRight, BottomRight, TopRight, TopCenter, TopLeft), g.remainingMoves)
+  }
 
   @Test def newGameIsNotOverYet(): Unit = {
     assertFalse(TicTacToe().isOver)
@@ -41,7 +43,7 @@ class TicTacToeTest {
   }
 
   private val gamePlayerAWins: TicTacToe = TicTacToe(
-    ListMap() ++ Map(
+    ListMap() ++ Map[TMove, Player](
       TopLeft -> PlayerA,
       TopCenter -> PlayerA,
       TopRight -> PlayerA,
@@ -58,7 +60,7 @@ class TicTacToeTest {
 
   @Test def playerBWinsTheGame(): Unit = {
     val game = TicTacToe(
-      ListMap() ++ Map(
+      ListMap() ++ Map[TMove, Player](
         TopLeft -> PlayerB,
         TopCenter -> PlayerB,
         TopRight -> PlayerB,
@@ -75,7 +77,7 @@ class TicTacToeTest {
 
   @Test def thereIsADraw(): Unit = {
     val game = TicTacToe(
-      ListMap() ++ Map(
+      ListMap() ++ Map[TMove, Player](
         TopLeft -> PlayerA,
         TopCenter -> PlayerB,
         TopRight -> PlayerA,
@@ -118,8 +120,7 @@ class TicTacToeTest {
     assertEquals(
       """---
         |---
-        |---
-        | """.stripMargin, TicTacToe.asString(TicTacToe().stateMap))
+        |---""".stripMargin, TicTacToe.asString(TicTacToe().stateMap))
   }
 
 
@@ -127,8 +128,7 @@ class TicTacToeTest {
     assertEquals(
       """ooo
         |xx-
-        |---
-        | """.stripMargin, TicTacToe.asString(gamePlayerAWins.stateMap))
+        |---""".stripMargin, TicTacToe.asString(gamePlayerAWins.stateMap))
   }
 
   @Test def testAsString3(): Unit = {
@@ -136,9 +136,38 @@ class TicTacToeTest {
       """Winner is: Player A
         |ooo
         |xx-
-        |---
-        | """.stripMargin, gamePlayerAWins.asString)
+        |---""".stripMargin, gamePlayerAWins.asString)
   }
+
+  private val scenario1: String =
+    """---
+      |-o-
+      |xo-""".stripMargin
+
+  private val toe1: TicTacToe = TicTacToe(scenario1)
+
+  @Test def testConstructorAndAsString(): Unit = {
+    assertEquals(scenario1, toe1.asString)
+  }
+
+  /**
+    * Scenario:
+    *
+    * ...
+    * .o.
+    * xo.
+    *
+    * it is assumed that the next step of the strategy is
+    *
+    * .x.
+    * .o.
+    * xo.
+    *
+    */
+  @Test def testScenario1(): Unit = {
+    assertEquals(scenario1, toe1.asString)
+  }
+
 
   // implement yourself more tests
 

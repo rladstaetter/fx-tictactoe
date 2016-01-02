@@ -11,15 +11,21 @@ import scala.collection.immutable.ListMap
 sealed trait TMove
 
 case object TopLeft extends TMove
+
 case object TopCenter extends TMove
+
 case object TopRight extends TMove
 
 case object MiddleLeft extends TMove
+
 case object MiddleCenter extends TMove
+
 case object MiddleRight extends TMove
 
 case object BottomLeft extends TMove
+
 case object BottomCenter extends TMove
+
 case object BottomRight extends TMove
 
 
@@ -28,16 +34,21 @@ case object BottomRight extends TMove
   */
 sealed trait Player {
   def asString: String
+
+  def opponent: Player
 }
 
 case object PlayerA extends Player {
   override def asString: String = "o"
+
+  override def opponent: Player = PlayerB
 }
 
 case object PlayerB extends Player {
   override def asString: String = "x"
-}
 
+  override def opponent: Player = PlayerA
+}
 
 
 /**
@@ -56,6 +67,15 @@ case class TicTacToe(moveHistory: ListMap[TMove, Player] = ListMap(), nextPlayer
   }
 
   /**
+    * returns a winning move for the current game and the given player
+    */
+  def lookAhead(p: Player): Option[TMove] = {
+    remainingMoves.find {
+      case m => turn(m, p).winner.isDefined
+    }
+  }
+
+  /**
     * outputs a representation of the tic tac toe
     *
     * @return
@@ -69,7 +89,7 @@ case class TicTacToe(moveHistory: ListMap[TMove, Player] = ListMap(), nextPlayer
         }.getOrElse("It's a draw.")
       } else ""
 
-    header + "\n" + TicTacToe.asString(stateMap)
+    (if (!header.isEmpty) header + "\n" else "") + TicTacToe.asString(stateMap)
   }
 
 
@@ -88,7 +108,7 @@ case class TicTacToe(moveHistory: ListMap[TMove, Player] = ListMap(), nextPlayer
   /**
     * All fields which are taken so far by a player
     */
-  lazy val movesSoFar: Set[TMove] = moveHistory.keySet
+  lazy val movesSoFar: Seq[TMove] = moveHistory.keys.toSeq
 
   /**
     * the moves which are still to be played on this tic tac toe game.
@@ -173,30 +193,41 @@ object TicTacToe {
   val winners: Set[Set[TMove]] =
     Set(win1, win2, win3, win4, win5, win6, win7, win8)
 
-
-  /**
-    * For a given tic tac toe game, this function applies all moves to the game.
-    * The first element of the sequence is also the first move.
-    *
-    * @param t
-    * @param moves
-    * @return
-    */
-  def play(t: TicTacToe, moves: Seq[TMove]): TicTacToe = ???
-
-  /**
-    * creates all possible games.
-    *
-    * @return
-    */
-  def mkGames(): Map[Seq[TMove], TicTacToe] = ???
-
   def asString(t: TicTacToe): String = asString(t.stateMap)
 
   def asString(ticTacState: Map[TMove, String]): String = {
     s"${ticTacState(TopLeft)}${ticTacState(TopCenter)}${ticTacState(TopRight)}" + "\n" +
       s"${ticTacState(MiddleLeft)}${ticTacState(MiddleCenter)}${ticTacState(MiddleRight)}" + "\n" +
-      s"${ticTacState(BottomLeft)}${ticTacState(BottomCenter)}${ticTacState(BottomRight)}" + "\n"
+      s"${ticTacState(BottomLeft)}${ticTacState(BottomCenter)}${ticTacState(BottomRight)}"
+  }
+
+  def mk(pos: TMove, c: Char): Option[(TMove, Player)] = {
+    c match {
+      case '-' => None
+      case 'o' => Some((pos, PlayerA))
+      case 'x' => Some((pos, PlayerB))
+    }
+  }
+
+  def convert(stringRep: String): ListMap[TMove, Player] = {
+    val a = stringRep.split("\n")
+    val l0 = a(0)
+    val l1 = a(1)
+    val l2 = a(2)
+    ListMap() ++
+      Seq(
+        mk(TopLeft, l0(0)), mk(TopCenter, l0(1)), mk(TopRight, l0(2)),
+        mk(MiddleLeft, l1(0)), mk(MiddleCenter, l1(1)), mk(MiddleRight, l1(2)),
+        mk(BottomLeft, l2(0)), mk(BottomCenter, l2(1)), mk(BottomRight, l2(2))).flatten.toMap
+  }
+
+  def apply(stringRep: String): TicTacToe = {
+    val moves: ListMap[TMove, Player] = convert(stringRep)
+    val cntPlayerA = moves.values.count(_ == PlayerA)
+    val cntPlayerB = moves.values.count(_ == PlayerB)
+    assert(Math.abs(cntPlayerA - cntPlayerB) <= 1, "illegal game state")
+    val nextPlayer = if (cntPlayerA > cntPlayerB) PlayerB else PlayerA
+    TicTacToe(moves, nextPlayer)
   }
 
 }

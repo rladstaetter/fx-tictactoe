@@ -7,7 +7,7 @@ import scala.util.Random
   */
 object RandomTicTacToeStrategy extends TicTacToeStrategy {
 
-  def nextTurn(game: TicTacToe): Option[TMove] = {
+  def calcNextTurn(game: TicTacToe): Option[TMove] = {
     if (game.isOver) None
     else {
       val moves: Seq[TMove] = game.remainingMoves.toSeq

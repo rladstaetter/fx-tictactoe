@@ -28,7 +28,7 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
   }
 
   // calculate all tic tac toe games possible
-  lazy val allGames: Map[collection.Set[TMove], TicTacToe] = {
+  lazy val allGames: Map[Seq[TMove], TicTacToe] = {
     TicTacToe.allMoves.toSeq.permutations.map {
       case moves =>
         val t = play(newGame, moves)
@@ -37,20 +37,15 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
   }
 
   // separate draw games from games where a winner exists
-  lazy val (gamesWithWinner: Map[collection.Set[TMove], TicTacToe], gamesWithDraw: Map[collection.Set[TMove], TicTacToe]) =
+  lazy val (gamesWithWinner: Map[Seq[TMove], TicTacToe], gamesWithDraw: Map[Seq[TMove], TicTacToe]) =
     allGames.partition {
       case (_, game) => game.winner.isDefined
     }
-
-  lazy val possibleDraws: Map[collection.Set[TMove], TicTacToe] = gamesWithDraw.map {
-    case (moves, g) => moves.toSet -> g
-  }
 
   // partition all games where a winner exists
   lazy val (gamesA, gamesB) = gamesWithWinner.partition {
     case (_, game) => game.winner.get._1 == PlayerA
   }
-
 
   /**
     * returns the next turn for a given tic tac toe game, or none if the tic tac toe
@@ -59,38 +54,36 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
     * @param game
     * @return
     */
-  override def nextTurn(game: TicTacToe): Option[TMove] = {
+  override def calcNextTurn(game: TicTacToe): Option[TMove] = {
     if (game.isOver) None
     else {
-      println("Player: " + game.nextPlayer)
+      val plr = game.nextPlayer
       // only interested in the win for the player
-      val winningGames: Map[collection.Set[TMove], TicTacToe] =
-        (if (game.nextPlayer == PlayerA) gamesA else gamesB).map {
-          case (moves, g) => moves.toSet -> g
-        }
-      println("gamesA:" + gamesA.size)
-      println("gamesB:" + gamesB.size)
-      println("draws:" + gamesWithDraw.size)
-      println("games:" + winningGames.size)
-      // we try to win, so lets search if there exists a path to a winning game
-      val possibleWins =
-        winningGames.filter {
-          case (moves, _) => game.movesSoFar.subsetOf(moves)
-        }.keySet
+      val winningGames: Map[Seq[TMove], TicTacToe] =
+        if (plr == PlayerA) gamesA else gamesB
 
-      if (possibleWins.nonEmpty) {
-        Some(determineMove(game, possibleWins))
+      // we try to win, so lets search if there exists a path to a winning game
+      val potentialWinningMoves: Seq[Seq[TMove]] =
+        winningGames.filter {
+          case (moves, _) => moves.startsWith(game.movesSoFar)
+        }.keys.toSeq
+
+      if (potentialWinningMoves.nonEmpty) {
+        // println(plr + ": " + potentialWinningMoves.size + " ways to to win the game.")
+        Some(determineMove(game, potentialWinningMoves))
       } else {
         // check if we can reach a draw
-        val possibleDs =
-          possibleDraws.filter {
-            case (moves, _) => game.movesSoFar.subsetOf(moves)
-          }.keySet
-        if (possibleDraws.nonEmpty) {
-          Some(determineMove(game, possibleDs))
+        val potentialDraws =
+          gamesWithDraw.filter {
+            case (moves, _) => moves.startsWith(game.movesSoFar)
+          }.keySet.toSeq
+        if (potentialDraws.nonEmpty) {
+          //println(plr + ": " + potentialDraws.size + " ways to a draw left.")
+          Some(determineMove(game, potentialDraws))
         } else {
           // no winning path nor draw could be found, we'll loose
           // so just take any random move
+          //println(plr + ": I take a random move since it is already clear I loose.")
           Some(game.remainingMoves.toSeq(Random.nextInt(game.remainingMoves.size)))
         }
 
@@ -102,16 +95,28 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
     * uses some heuristics to choose the best move.
     *
     * @param game
-    * @param availableMoves
+    * @param potentialMoves
     * @return
     */
-  def determineMove(game: TicTacToe, availableMoves: Set[collection.Set[TMove]]): TMove = {
-    // we take the shortest path to win
-    val possibilities = availableMoves.toSeq.sortWith((a, b) => a.size > b.size)
-    val aPathToWin = possibilities.head
-    println(aPathToWin)
-    // remove already moved turns
-    val moves: Seq[TMove] = (aPathToWin -- game.movesSoFar).toSeq
-    moves(Random.nextInt(moves.size)) // take a random next step out of the possible wins
+  def determineMove(game: TicTacToe, potentialMoves: Seq[Seq[TMove]]): TMove = {
+    println(game.asString)
+    val winningMoveForOpponent = game.lookAhead(PlayerA)
+    println("lookahead:" + winningMoveForOpponent)
+    if (winningMoveForOpponent.isDefined) {
+      winningMoveForOpponent.get
+    } else {
+      // we take the shortest path to win
+      val possibilities = potentialMoves.sortWith((a, b) => a.size < b.size)
+      val aPathToWin = possibilities.head
+
+      // remove already moved turns
+      //val moves: Seq[TMove] =
+      val nextMoves: Seq[TMove] = aPathToWin.drop(game.movesSoFar.length)
+
+      val t = nextMoves.head
+      println(game.nextPlayer + ": took " + t + " as a move.")
+      t
+      //moves(Random.nextInt(moves.size)) // take a random next step out of the possible wins
+    }
   }
 }

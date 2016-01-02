@@ -12,6 +12,6 @@ trait TicTacToeStrategy {
     * @param game
     * @return
     */
-  def nextTurn(game: TicTacToe): Option[TMove]
+  def calcNextTurn(game: TicTacToe): Option[TMove]
 
 }

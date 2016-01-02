@@ -5,9 +5,9 @@ import java.util.ResourceBundle
 import javafx.application.Application
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.value.{ChangeListener, ObservableValue}
-import javafx.fxml.{FXMLLoader, FXML, Initializable}
-import javafx.scene.{Scene, Parent}
-import javafx.scene.control.{TextArea, Button}
+import javafx.fxml.{FXML, FXMLLoader, Initializable}
+import javafx.scene.control.{Button, TextArea}
+import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
 
 import scala.util.control.NonFatal
@@ -18,8 +18,6 @@ object TicTacToeApp {
     Application.launch(classOf[TicTacToeApp], args: _*)
   }
 }
-
-
 
 
 object JfxUtils {
@@ -129,26 +127,24 @@ class TicTacToeAppController extends Initializable {
   }
 
   def turn(strategy: TicTacToeStrategy, player: Player, m: TMove): Unit = {
-    updateButtons(player, m)
+    updateButtons(m,player)
     val gameAfterTurn: TicTacToe = getCurrentGame().turn(m, player)
     setCurrentGame(gameAfterTurn)
 
     // computer move
-    strategy.nextTurn(gameAfterTurn).map({
+    strategy.calcNextTurn(gameAfterTurn).map({
       case move =>
-        updateButtons(gameAfterTurn.nextPlayer, move)
+        updateButtons(move, gameAfterTurn.nextPlayer)
         gameAfterTurn.turn(move, gameAfterTurn.nextPlayer)
     }).foreach(setCurrentGame)
   }
 
-  def updateButtons(player: Player, m: TMove): Unit = {
+  def updateButtons(m: TMove, player: Player): Unit = {
     buttons(m).setText(player.asString)
     buttons(m).setDisable(true)
   }
 
-  @FXML def onTopLeftClick(): Unit = {
-    turn(getStrategy(), getCurrentGame().nextPlayer, TopLeft)
-  }
+  @FXML def onTopLeftClick(): Unit = turn(getStrategy(), getCurrentGame().nextPlayer, TopLeft)
 
   @FXML def onTopCenterClick(): Unit = turn(getStrategy(), getCurrentGame().nextPlayer, TopCenter)
 

@@ -110,11 +110,18 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
       if (winningMoveForOpponent.isDefined) {
         winningMoveForOpponent.get
       } else {
-        // we take the shortest path to win
-        val possibilities = potentialMoves.sortWith((a, b) => a.size < b.size)
-        val aPathToWin = possibilities.head
+        // prefer the middle center f
+        if (potentialMoves.exists {
+          case moves => moves.drop(game.movesSoFar.length).head == MiddleCenter
+        }) {
+          MiddleCenter
+        } else {
+          // we take the shortest path to win
+          val possibilities = potentialMoves.sortWith((a, b) => a.size < b.size)
+          val aPathToWin = possibilities.head
 
-        aPathToWin.drop(game.movesSoFar.length).head
+          aPathToWin.drop(game.movesSoFar.length).head
+        }
       }
     }
   }

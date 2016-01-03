@@ -85,4 +85,19 @@ class BruteForceTicTacToeStrategyTest {
   }
 
 
+  /**
+    * If playerA doesn't take the middle in the first round and it is a probable path to
+    * a win, prefer this strategy.
+    */
+  @Test def testPlaceInTheMiddle(): Unit = {
+    val g = TicTacToe(
+      """o--
+        |---
+        |---""".stripMargin)
+    calcNextTurn(g) match {
+      case None => fail()
+      case Some(m) => assertEquals(MiddleCenter, m)
+    }
+  }
+
 }

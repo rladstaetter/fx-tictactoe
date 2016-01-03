@@ -1,68 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="595.0" prefWidth="692.0" stylesheets="@TicTacToeApp.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ladstatt.fx.ttt.TicTacToeAppController">
+<!-- based on the design of carina herzog's tictactoe gui: see https://github.com/carinaher/fhj.swengb.assignments.ttt -->
+<BorderPane prefHeight="595.0" prefWidth="692.0" stylesheets="@TicTacToeApp.css" xmlns="http://javafx.com/javafx/8.0.40"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ladstatt.fx.ttt.TicTacToeAppController">
     <center>
         <GridPane fx:id="gridPane" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Button fx:id="topLeftBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onTopLeftClick" stylesheets="@TicTacToeApp.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Button fx:id="topLeftBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onTopLeftClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="topCenterBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onTopCenterClick" stylesheets="@TicTacToeApp.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Button fx:id="topCenterBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onTopCenterClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="topRightBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onTopRightClick" stylesheets="@TicTacToeApp.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Button fx:id="topRightBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onTopRightClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="middleLeftBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMiddleLeftClick" stylesheets="@TicTacToeApp.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Button fx:id="middleLeftBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onMiddleLeftClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="middleCenterBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMiddleCenterClick" stylesheets="@TicTacToeApp.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Button fx:id="middleCenterBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onMiddleCenterClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                        GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="middleRightBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMiddleRightClick" stylesheets="@TicTacToeApp.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Button fx:id="middleRightBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onMiddleRightClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                        GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="bottomLeftBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBottomLeftClick" stylesheets="@TicTacToeApp.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Button fx:id="bottomLeftBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onBottomLeftClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="bottomCenterBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBottomCenterClick" stylesheets="@TicTacToeApp.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Button fx:id="bottomCenterBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onBottomCenterClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                        GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
-                <Button fx:id="bottomRightBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBottomRightClick" stylesheets="@TicTacToeApp.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Button fx:id="bottomRightBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#onBottomRightClick" stylesheets="@TicTacToeApp.css"
+                        GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                        GridPane.valignment="CENTER">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Button>
 
@@ -72,24 +94,27 @@
     <top>
         <GridPane prefHeight="128.0" prefWidth="692.0" stylesheets="@TicTacToeApp.css" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Button fx:id="newGame" mnemonicParsing="false" onAction="#newGame" styleClass="blue" stylesheets="@TicTacToeApp.css" text="New Game" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Button fx:id="newGame" mnemonicParsing="false" onAction="#newGame" styleClass="blue"
+                        stylesheets="@TicTacToeApp.css" text="New Game" GridPane.columnIndex="1"
+                        GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
-                        <Font size="30.0" />
+                        <Font size="30.0"/>
                     </font>
                 </Button>
-                <Label fx:id="playerWon" alignment="CENTER" prefHeight="35.0" prefWidth="342.0" styleClass="white" stylesheets="@TicTacToeApp.css" GridPane.rowIndex="1">
+                <Label fx:id="playerWon" alignment="CENTER" prefHeight="35.0" prefWidth="342.0" styleClass="white"
+                       stylesheets="@TicTacToeApp.css" GridPane.rowIndex="1">
                     <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="System Bold" size="30.0"/>
                     </font>
                 </Label>
             </children>
@@ -98,26 +123,27 @@
     <bottom>
         <GridPane stylesheets="@TicTacToeApp.css" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Label fx:id="resultLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="389.0" styleClass="white" stylesheets="@TicTacToeApp.css" GridPane.rowIndex="1">
+                <Label fx:id="resultLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="37.0"
+                       prefWidth="389.0" styleClass="white" stylesheets="@TicTacToeApp.css" GridPane.rowIndex="1">
                     <font>
-                        <Font size="30.0" />
+                        <Font size="30.0"/>
                     </font>
                 </Label>
             </children>
         </GridPane>
     </bottom>
     <left>
-        <Pane prefHeight="377.0" prefWidth="143.0" stylesheets="@TicTacToeApp.css" BorderPane.alignment="CENTER" />
+        <Pane prefHeight="377.0" prefWidth="143.0" stylesheets="@TicTacToeApp.css" BorderPane.alignment="CENTER"/>
     </left>
     <right>
-        <Pane prefHeight="377.0" prefWidth="138.0" stylesheets="@TicTacToeApp.css" BorderPane.alignment="CENTER" />
+        <Pane prefHeight="377.0" prefWidth="138.0" stylesheets="@TicTacToeApp.css" BorderPane.alignment="CENTER"/>
     </right>
 </BorderPane>

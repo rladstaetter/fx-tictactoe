@@ -99,17 +99,23 @@ object BruteForceTicTacToeStrategy extends TicTacToeStrategy {
     * @return
     */
   def determineMove(game: TicTacToe, potentialMoves: Seq[Seq[TMove]]): TMove = {
-    // check if there is already an obvious threat from the opponent to win the game
-    // if there is, we'll take the move
-    val winningMoveForOpponent = game.lookAhead(PlayerA)
-    if (winningMoveForOpponent.isDefined) {
-      winningMoveForOpponent.get
+    // check if we could win with the next move
+    val winningMove = game.lookAhead(PlayerB)
+    if (winningMove.isDefined) {
+      winningMove.get
     } else {
-      // we take the shortest path to win
-      val possibilities = potentialMoves.sortWith((a, b) => a.size < b.size)
-      val aPathToWin = possibilities.head
+      // check if there is already an obvious threat from the opponent to win the game
+      // if there is, we'll take the move
+      val winningMoveForOpponent = game.lookAhead(PlayerA)
+      if (winningMoveForOpponent.isDefined) {
+        winningMoveForOpponent.get
+      } else {
+        // we take the shortest path to win
+        val possibilities = potentialMoves.sortWith((a, b) => a.size < b.size)
+        val aPathToWin = possibilities.head
 
-      aPathToWin.drop(game.movesSoFar.length).head
+        aPathToWin.drop(game.movesSoFar.length).head
+      }
     }
   }
 }

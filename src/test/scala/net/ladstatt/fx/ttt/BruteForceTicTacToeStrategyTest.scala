@@ -73,4 +73,16 @@ class BruteForceTicTacToeStrategyTest {
   }
 
 
+  @Test def testGreedyWin(): Unit = {
+    val g = TicTacToe(
+      """-xx
+        |-oo
+        |--o""".stripMargin)
+    calcNextTurn(g) match {
+      case None => fail()
+      case Some(m) => assertEquals(TopLeft, m)
+    }
+  }
+
+
 }

@@ -3,6 +3,8 @@ package net.ladstatt.fx.ttt
 import scala.util.Random
 
 /**
+  * Another strategy which selects a random turn. Not very competitive, though.
+  *
   * Created by lad on 31.12.15.
   */
 object RandomTicTacToeStrategy extends TicTacToeStrategy {

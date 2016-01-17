@@ -91,7 +91,7 @@ class TicTacToeAppController extends Initializable {
       BottomRight -> bottomRightBtn
     )
 
-  val strategyProperty: SimpleObjectProperty[TicTacToeStrategy] = new SimpleObjectProperty[TicTacToeStrategy](BruteForceTicTacToeStrategy)
+  val strategyProperty: SimpleObjectProperty[TicTacToeStrategy] = new SimpleObjectProperty[TicTacToeStrategy](RandomTicTacToeStrategy)
 
   def getStrategy(): TicTacToeStrategy = strategyProperty.get()
 

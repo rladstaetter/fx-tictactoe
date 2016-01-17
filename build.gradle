@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.javafxports:jfxmobile-plugin:1.0.8-SNAPSHOT'
+    }
+}
+
+apply plugin: 'scala'           // compile scala sources as well
+apply plugin: 'org.javafxports.jfxmobile'
+
+mainClassName = 'net.ladstatt.fx.ttt.TicTacToeApp'
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.7'
+    testCompile "junit:junit:4.12"
+}
+
+repositories {
+    jcenter()
+}
+
+jfxmobile {
+    ios {
+        forceLinkClasses = ['net.ladstatt.**.*']
+    }
+    android {
+        applicationPackage = 'net.ladstatt.fx.ttt'
+    }
+}

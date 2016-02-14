@@ -1,4 +1,4 @@
-package net.ladstatt.fx.ttt
+package net.ladstatt.tictactoe
 
 import scala.util.Random
 

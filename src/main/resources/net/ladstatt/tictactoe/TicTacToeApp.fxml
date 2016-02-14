@@ -6,7 +6,7 @@
 
 <!-- based on the design of carina herzog's tictactoe gui: see https://github.com/carinaher/fhj.swengb.assignments.ttt -->
 <BorderPane prefHeight="595.0" prefWidth="692.0" stylesheets="@TicTacToeApp.css" xmlns="http://javafx.com/javafx/8.0.40"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ladstatt.fx.ttt.TicTacToeAppController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.ladstatt.tictactoe.TicTacToeAppController">
     <center>
         <GridPane fx:id="gridPane" BorderPane.alignment="CENTER">
             <columnConstraints>

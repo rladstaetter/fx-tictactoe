@@ -5,18 +5,19 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.javafxports:jfxmobile-plugin:1.0.8-SNAPSHOT'
+        // during build, we depend on the jfxmobile-plugin
+        classpath 'org.javafxports:jfxmobile-plugin:1.0.7'
     }
 }
 
-apply plugin: 'scala'           // compile scala sources as well
-apply plugin: 'org.javafxports.jfxmobile'
+apply plugin: 'scala'                       // compile scala sources as well
+apply plugin: 'org.javafxports.jfxmobile'   // let jfxmobile-plugin do its dance
 
-mainClassName = 'net.ladstatt.fx.ttt.TicTacToeApp'
+mainClassName = 'net.ladstatt.tictactoe.TicTacToeApp'
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.7'
-    testCompile "junit:junit:4.12"
+    testCompile 'junit:junit:4.12'
 }
 
 repositories {
@@ -28,6 +29,18 @@ jfxmobile {
         forceLinkClasses = ['net.ladstatt.**.*']
     }
     android {
-        applicationPackage = 'net.ladstatt.fx.ttt'
+        signingConfig {
+            storeFile file("/Users/lad/.ssh/ladstatt.keystore")
+            File propsFile = file("/Users/lad/.ssh/ladstatt.keystore.properties");
+            if (propsFile.exists()) {
+                Properties props = new Properties();
+                props.load(new FileInputStream(propsFile))
+                storePassword props.getProperty('storePassword')
+                keyPassword props.getProperty('keyPassword')
+                keyAlias props.getProperty('keyAlias')
+            }
+        }
+        applicationPackage = 'net.ladstatt.tictactoe'
+        manifest = 'src/android/AndroidManifest.xml'
     }
 }

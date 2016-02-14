@@ -1,7 +1,71 @@
-package net.ladstatt.fx.ttt
+package net.ladstatt.tictactoe
 
-import scala.collection.Set
+
 import scala.collection.immutable.ListMap
+
+/**
+  * Created by lad on 02.01.16.
+  */
+object TicTacToe {
+
+  /**
+    * All possible moves for a 3 x 3 Tic Tac Toe
+    */
+  val allMoves: Set[TMove] =
+    Set(TopLeft, TopCenter, TopRight,
+      MiddleLeft, MiddleCenter, MiddleRight,
+      BottomLeft, BottomCenter, BottomRight)
+
+  val win1: Set[TMove] = Set(TopLeft, TopCenter, TopRight)
+  val win2: Set[TMove] = Set(MiddleLeft, MiddleCenter, MiddleRight)
+  val win3: Set[TMove] = Set(BottomLeft, BottomCenter, BottomRight)
+  val win4: Set[TMove] = Set(TopLeft, MiddleLeft, BottomLeft)
+  val win5: Set[TMove] = Set(TopCenter, MiddleCenter, BottomCenter)
+  val win6: Set[TMove] = Set(TopRight, MiddleRight, BottomRight)
+  val win7: Set[TMove] = Set(TopLeft, MiddleCenter, BottomRight)
+  val win8: Set[TMove] = Set(TopRight, MiddleCenter, BottomLeft)
+
+  val winners: Set[Set[TMove]] =
+    Set(win1, win2, win3, win4, win5, win6, win7, win8)
+
+  def asString(t: TicTacToe): String = asString(t.stateMap)
+
+  def asString(ticTacState: Map[TMove, String]): String = {
+    s"${ticTacState(TopLeft)}${ticTacState(TopCenter)}${ticTacState(TopRight)}" + "\n" +
+      s"${ticTacState(MiddleLeft)}${ticTacState(MiddleCenter)}${ticTacState(MiddleRight)}" + "\n" +
+      s"${ticTacState(BottomLeft)}${ticTacState(BottomCenter)}${ticTacState(BottomRight)}"
+  }
+
+  def mk(pos: TMove, c: Char): Option[(TMove, Player)] = {
+    c match {
+      case '-' => None
+      case 'o' => Some((pos, PlayerA))
+      case 'x' => Some((pos, PlayerB))
+    }
+  }
+
+  def convert(stringRep: String): ListMap[TMove, Player] = {
+    val a = stringRep.split("\n")
+    val l0 = a(0)
+    val l1 = a(1)
+    val l2 = a(2)
+    ListMap() ++
+      Seq(
+        mk(TopLeft, l0(0)), mk(TopCenter, l0(1)), mk(TopRight, l0(2)),
+        mk(MiddleLeft, l1(0)), mk(MiddleCenter, l1(1)), mk(MiddleRight, l1(2)),
+        mk(BottomLeft, l2(0)), mk(BottomCenter, l2(1)), mk(BottomRight, l2(2))).flatten.toMap
+  }
+
+  def apply(stringRep: String): TicTacToe = {
+    val moves: ListMap[TMove, Player] = convert(stringRep)
+    val cntPlayerA = moves.values.count(_ == PlayerA)
+    val cntPlayerB = moves.values.count(_ == PlayerB)
+    assert(Math.abs(cntPlayerA - cntPlayerB) <= 1, "illegal game state")
+    val nextPlayer = if (cntPlayerA > cntPlayerB) PlayerB else PlayerA
+    TicTacToe(moves, nextPlayer)
+  }
+
+}
 
 /**
   * models the different moves the game allows
@@ -168,66 +232,4 @@ case class TicTacToe(moveHistory: ListMap[TMove, Player] = ListMap(), nextPlayer
 
 }
 
-/**
-  * Created by lad on 02.01.16.
-  */
-object TicTacToe {
 
-  /**
-    * All possible moves for a 3 x 3 Tic Tac Toe
-    */
-  val allMoves: Set[TMove] =
-    Set(TopLeft, TopCenter, TopRight,
-      MiddleLeft, MiddleCenter, MiddleRight,
-      BottomLeft, BottomCenter, BottomRight)
-
-  val win1: Set[TMove] = Set(TopLeft, TopCenter, TopRight)
-  val win2: Set[TMove] = Set(MiddleLeft, MiddleCenter, MiddleRight)
-  val win3: Set[TMove] = Set(BottomLeft, BottomCenter, BottomRight)
-  val win4: Set[TMove] = Set(TopLeft, MiddleLeft, BottomLeft)
-  val win5: Set[TMove] = Set(TopCenter, MiddleCenter, BottomCenter)
-  val win6: Set[TMove] = Set(TopRight, MiddleRight, BottomRight)
-  val win7: Set[TMove] = Set(TopLeft, MiddleCenter, BottomRight)
-  val win8: Set[TMove] = Set(TopRight, MiddleCenter, BottomLeft)
-
-  val winners: Set[Set[TMove]] =
-    Set(win1, win2, win3, win4, win5, win6, win7, win8)
-
-  def asString(t: TicTacToe): String = asString(t.stateMap)
-
-  def asString(ticTacState: Map[TMove, String]): String = {
-    s"${ticTacState(TopLeft)}${ticTacState(TopCenter)}${ticTacState(TopRight)}" + "\n" +
-      s"${ticTacState(MiddleLeft)}${ticTacState(MiddleCenter)}${ticTacState(MiddleRight)}" + "\n" +
-      s"${ticTacState(BottomLeft)}${ticTacState(BottomCenter)}${ticTacState(BottomRight)}"
-  }
-
-  def mk(pos: TMove, c: Char): Option[(TMove, Player)] = {
-    c match {
-      case '-' => None
-      case 'o' => Some((pos, PlayerA))
-      case 'x' => Some((pos, PlayerB))
-    }
-  }
-
-  def convert(stringRep: String): ListMap[TMove, Player] = {
-    val a = stringRep.split("\n")
-    val l0 = a(0)
-    val l1 = a(1)
-    val l2 = a(2)
-    ListMap() ++
-      Seq(
-        mk(TopLeft, l0(0)), mk(TopCenter, l0(1)), mk(TopRight, l0(2)),
-        mk(MiddleLeft, l1(0)), mk(MiddleCenter, l1(1)), mk(MiddleRight, l1(2)),
-        mk(BottomLeft, l2(0)), mk(BottomCenter, l2(1)), mk(BottomRight, l2(2))).flatten.toMap
-  }
-
-  def apply(stringRep: String): TicTacToe = {
-    val moves: ListMap[TMove, Player] = convert(stringRep)
-    val cntPlayerA = moves.values.count(_ == PlayerA)
-    val cntPlayerB = moves.values.count(_ == PlayerB)
-    assert(Math.abs(cntPlayerA - cntPlayerB) <= 1, "illegal game state")
-    val nextPlayer = if (cntPlayerA > cntPlayerB) PlayerB else PlayerA
-    TicTacToe(moves, nextPlayer)
-  }
-
-}

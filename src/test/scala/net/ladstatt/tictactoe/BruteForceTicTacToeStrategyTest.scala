@@ -1,4 +1,4 @@
-package net.ladstatt.fx.ttt
+package net.ladstatt.tictactoe
 
 import org.junit.Assert._
 import org.junit.Test

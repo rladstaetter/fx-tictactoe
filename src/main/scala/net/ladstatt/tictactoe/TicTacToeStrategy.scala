@@ -1,4 +1,4 @@
-package net.ladstatt.fx.ttt
+package net.ladstatt.tictactoe
 
 /**
   * Created by lad on 31.12.15.

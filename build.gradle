@@ -21,6 +21,7 @@ dependencies {
 }
 
 repositories {
+    mavenLocal()
     jcenter()
 }
 
@@ -30,7 +31,12 @@ jfxmobile {
     }
     android {
         signingConfig {
+            // your keystore file which can be created by a program called 'keytool'
+            // see https://developer.android.com/tools/publishing/app-signing.html
             storeFile file("/Users/lad/.ssh/ladstatt.keystore")
+
+            // this little trick enables us to commit everything except our passwords
+            // to github - like this your private things stay private.
             File propsFile = file("/Users/lad/.ssh/ladstatt.keystore.properties");
             if (propsFile.exists()) {
                 Properties props = new Properties();
